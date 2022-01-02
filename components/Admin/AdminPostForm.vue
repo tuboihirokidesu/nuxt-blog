@@ -1,5 +1,5 @@
 <template lang="">
-  <form @submit.prevent="onSave">
+  <form @submit.prevent="onSave" class="text-white">
     <AppControlInput v-model="editedPost.author">Author Name</AppControlInput>
     <AppControlInput v-model="editedPost.title">Title</AppControlInput>
     <AppControlInput v-model="editedPost.thumbnail"
@@ -11,14 +11,20 @@
     <AppControlInput control-type="textarea" v-model="editedPost.previewText"
       >Preview Text</AppControlInput
     >
-    <AppButton type="submit">Save</AppButton>
-    <AppButton
-      type="button"
-      style="margin-left: 10px"
-      btn-style="cancel"
-      @click="onCancel"
-      >Cancel</AppButton
-    >
+    <div class="flex justify-between">
+      <AppButton
+        type="submit"
+        style="color: rgba(255, 255, 255); background-color: rgba(37, 99, 235)"
+        >Save</AppButton
+      >
+      <AppButton
+        type="button"
+        btn-style="red"
+        style="color: rgba(255, 255, 255); background-color: rgba(185, 28, 28)"
+        @click="onCancel"
+        >Cancel</AppButton
+      >
+    </div>
   </form>
 </template>
 

@@ -1,4 +1,5 @@
-export default {
+import { NuxtConfig } from '@nuxt/types' //追加
+const config: NuxtConfig = {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'nuxt-typescript-tuto',
@@ -33,31 +34,31 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module',
 
     '@nuxtjs/tailwindcss',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/firebase'],
-
-  firebase: {
-    config: {
-      apiKey: process.env.apiKey,
-      authDomain: process.env.authDomain,
-      projectId: process.env.projectId,
-      storageBucket: process.env.storageBucket,
-      messagingSenderId: process.env.messagingSenderId,
-      appId: process.env.appID,
-      measurementId: process.env.measurementId,
-    },
-    services: {
-      // 今回はauthとfirestoreを使うので以下のようにしておきます。
-      firestore: true,
-    },
-  },
-
+  modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: process.env.apiKey,
+          authDomain: process.env.authDomain,
+          projectId: process.env.projectId,
+          storageBucket: process.env.storageBucket,
+          messagingSenderId: process.env.messagingSenderId,
+          appId: process.env.appId,
+          measurementId: process.env.measurementId,
+        },
+        services: {
+          auth: true,
+          firestore: true,
+        },
+      },
+    ],
+  ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   extend(config: any, ctx: any) {},
@@ -67,3 +68,5 @@ export default {
     ignoreNotFoundWarnings: true,
   },
 }
+
+export default config

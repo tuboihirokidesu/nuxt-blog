@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["firestore", "nuxt", "nuxtjs", "persistedstate", "Vuex"]
+  "cSpell.words": [
+    "firestore",
+    "nuxt",
+    "nuxtjs",
+    "persistedstate",
+    "semibold",
+    "tailwindcss",
+    "Vuex"
+  ]
 }

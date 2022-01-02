@@ -1,16 +1,16 @@
 module.exports = {
-  purge: [],
+  purge: ['./**/*.vue'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-        backgroundImage: {
-        'admins_menu': "url('assets/images/admins_menu')",
+      backgroundImage: {
+        admins_menu: "url('assets/images/admins_menu')",
       },
     },
   },
   variants: {
     extend: {
-       backgroundImage: ['hover', 'focus'],
+      backgroundImage: ['hover', 'focus'],
     },
   },
   plugins: [],

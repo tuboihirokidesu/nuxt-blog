@@ -1,13 +1,15 @@
 <template lang="">
   <div class="input-control">
-    <label><slot /></label>
+    <label class="inline-block mb-2 text-gray-700 form-label"><slot /></label>
     <input
+      class="w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-md focus:shadow-outline"
       v-if="controlType === 'input'"
       v-bind="$attrs"
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
     <textarea
+      class="resize rounded-md form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
       v-if="controlType === 'textarea'"
       rows="10"
       :value="value"
@@ -28,6 +30,10 @@ export default Vue.extend({
       default: 'input',
     },
     value: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
       type: String,
       default: '',
     },

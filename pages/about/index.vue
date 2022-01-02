@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <h1>aaaaaaa</h1>
+    <h1 class="m-6 text-xl">coming soon....</h1>
   </div>
 </template>
 
