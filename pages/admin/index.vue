@@ -9,12 +9,16 @@
       <h1>Existing Posts</h1>
       <PostList isAdmin />
     </section>
+    <div>
+      <Firebase />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import PostList from '@/components/Posts/PostList.vue'
 import AppButton from '@/components/UI/AppButton.vue'
+import Firebase from '@/components/Firebase.vue'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -22,6 +26,7 @@ export default Vue.extend({
   components: {
     PostList,
     AppButton,
+    Firebase,
   },
 })
 </script>

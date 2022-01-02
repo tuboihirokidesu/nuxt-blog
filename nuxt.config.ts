@@ -11,8 +11,12 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-          { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Open+Sans" }
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Open+Sans',
+      },
     ],
   },
 
@@ -33,19 +37,33 @@ export default {
     '@nuxtjs/stylelint-module',
 
     '@nuxtjs/tailwindcss',
-
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['@nuxtjs/firebase'],
+
+  firebase: {
+    config: {
+      apiKey: process.env.apiKey,
+      authDomain: process.env.authDomain,
+      projectId: process.env.projectId,
+      storageBucket: process.env.storageBucket,
+      messagingSenderId: process.env.messagingSenderId,
+      appId: process.env.appID,
+      measurementId: process.env.measurementId,
+    },
+    services: {
+      // 今回はauthとfirestoreを使うので以下のようにしておきます。
+      firestore: true,
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-  extend (config: any, ctx: any) {},
-  typescript :  {
+  extend(config: any, ctx: any) {},
+  typescript: {
+    typeCheck: true,
 
-    typeCheck :  true ,
-
-    ignoreNotFoundWarnings :  true
-
-  },}
+    ignoreNotFoundWarnings: true,
+  },
+}

@@ -7,16 +7,21 @@
       <h1 class="m-3 text-5xl font-bold">Get the latest tech news!</h1>
       <PostList :posts="loadedPosts" />
     </section>
+    <div>
+      <Firebase />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import PostList from '@/components/Posts/PostList.vue'
+import Firebase from '@/components/Firebase.vue'
 import Vue from 'vue'
 
 export default Vue.extend({
   components: {
     PostList,
+    Firebase,
   },
   //NOTE: vuexからデータを取得
   //GettersをViewに依存させない
