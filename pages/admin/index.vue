@@ -1,33 +1,31 @@
 <template lang="">
   <div class="admin-page">
     <section class="new-post">
-      <AppButton @click="$router.push('/admin/new-post')"
-        >Create Post</AppButton
+      <CustomButton @click="$router.push('/admin/new-post')"
+        >New Blog</CustomButton
       >
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
       <PostList isAdmin />
     </section>
-    <div>
-      <Firebase />
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import PostList from '@/components/Posts/PostList.vue'
-import AppButton from '@/components/UI/AppButton.vue'
-import Firebase from '@/components/Firebase.vue'
+import CustomButton from '@/components/UI/CustomButton.vue'
 import Vue from 'vue'
 
 export default Vue.extend({
   layout: 'admin',
   components: {
-    PostList,
-    AppButton,
-    Firebase,
+    CustomButton,
   },
+  // computed: {
+  //   loadedPosts() {
+  //     return this.$store.getters.loadedPosts
+  //   },
+  // },
 })
 </script>
 

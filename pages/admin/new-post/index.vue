@@ -1,54 +1,24 @@
 <template lang="">
-  <div class="admin-new-post-page">
-    <section class="new-post-form">
-      <AdminPostForm @submit="onSubmitted" />
-    </section>
-  </div>
+  <section class="w-2/5 mx-auto my-5">
+    <AdminPostForm @submit="onSubmitted" />
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import AdminPostForm from '@/components/Admin/AdminPostForm.vue'
-import firebase from 'firebase/compat/app'
-
-interface Blog {
-  author: string
-  title: string
-  thumbnailLink: string
-  content: string
-  previewText: string
-}
+import { Blog } from '../../../types/index'
 
 export default Vue.extend({
-  layout: 'admin',
   components: {
     AdminPostForm,
   },
   methods: {
     onSubmitted(postData: Blog) {
-      firebase
-        .firestore()
-        .collection('blog')
-        .add({
-          ...postData,
-          updatedDate: new Date(),
-        })
-        .then((ref) => console.log(ref.id))
-        .catch((e) => console.log(e))
+      this.$store.dispatch('addPost', postData).then(() => {
+        this.$router.push('/')
+      })
     },
   },
 })
 </script>
-
-<style scoped>
-.new-post-form {
-  width: 90%;
-  margin: 20px auto;
-}
-
-@media (min-width: 768px) {
-  .new-post-form {
-    width: 500px;
-  }
-}
-</style>

@@ -1,6 +1,6 @@
 <template lang="">
   <button
-    class="px-4 py-2 font-semibold bg-transparent border rounded"
+    class="px-4 py-2 font-semibold border rounded"
     v-bind="$attrs"
     v-on="$listeners"
   >
@@ -12,7 +12,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'AppButton',
+  name: 'CustomButton',
   props: {
     btnStyle: {
       type: String,

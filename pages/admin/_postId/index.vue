@@ -2,8 +2,9 @@
   <div class="admin-post-page">
     <section class="update-form">
       <!-- NOTE:  postはAdminPostFormにてpropsに与えたもの。 -->
-      <!-- NOTE:  :をつけることでloadedPostのような変数を指定できる -->
-      <AdminPostForm :post="loadedPost" />
+      <!-- NOTE:  :をつけることでloadedPostsのような変数を指定できる -->
+      <!-- @submit="onSubmitted"  -->
+      <AdminPostForm :post="loadedPosts" />
     </section>
   </div>
 </template>
@@ -11,23 +12,37 @@
 <script lang="ts">
 import AdminPostForm from '@/components/Admin/AdminPostForm.vue'
 import Vue from 'vue'
+import { Blog } from '../../../types/index'
+import firebase from 'firebase/compat/app'
 
 export default Vue.extend({
   layout: 'admin',
   components: {
     AdminPostForm,
   },
-  data() {
-    return {
-      loadedPost: {
-        author: 'Maximilian',
-        title: 'My awesome Post',
-        content: 'Super amazing, thanks for that!',
-        thumbnailLink:
-          'https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg',
-      },
-    }
-  },
+  // asyncData(context) {
+  //   return firebase
+  //     .firestore()
+  //     .collection('blog')
+  //     .get(
+  //       'https://nuxt-blog.firebaseio.com/posts/' +
+  //         context.params.postId +
+  //         '.json'
+  //     )
+  //     .then((res) => {
+  //       return {
+  //         loadedPosts: { ...res.data, id: context.params.postId },
+  //       }
+  //     })
+  //     .catch((e) => context.error())
+  // },
+  // methods: {
+  //   onSubmitted(editedPost: Blog) {
+  //     this.$store.dispatch('editPost', editedPost).then(() => {
+  //       this.$router.push('/admin')
+  //     })
+  //   },
+  // },
 })
 </script>
 
@@ -35,11 +50,5 @@ export default Vue.extend({
 .update-form {
   width: 90%;
   margin: 20px auto;
-}
-
-@media (min-width: 768px) {
-  .update-form {
-    width: 500px;
-  }
 }
 </style>

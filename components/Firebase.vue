@@ -28,7 +28,6 @@ export default Vue.extend({
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data().name}`)
           this.data.push(doc.data().name)
         })
       })

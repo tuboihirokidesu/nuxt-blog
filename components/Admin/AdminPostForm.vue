@@ -1,28 +1,29 @@
 <template lang="">
   <form @submit.prevent="onSave" class="text-white">
-    <AppControlInput v-model="editedPost.author">Author Name</AppControlInput>
-    <AppControlInput v-model="editedPost.title">Title</AppControlInput>
+    <div class="flex justify-between mt-4 space-x-4">
+      <AppControlInput class="w-1/2" v-model="editedPost.author"
+        >Author Name</AppControlInput
+      >
+      <AppControlInput class="w-1/2" v-model="editedPost.title"
+        >Title</AppControlInput
+      >
+    </div>
     <AppControlInput v-model="editedPost.thumbnail"
       >Thumbnail Link</AppControlInput
     >
     <AppControlInput control-type="textarea" v-model="editedPost.content"
       >Content</AppControlInput
     >
-    <AppControlInput control-type="textarea" v-model="editedPost.previewText"
-      >Preview Text</AppControlInput
-    >
-    <div class="flex justify-between">
-      <AppButton
-        type="submit"
-        style="color: rgba(255, 255, 255); background-color: rgba(37, 99, 235)"
-        >Save</AppButton
+    <div class="flex justify-end">
+      <CustomButton type="submit" class="mr-5 text-white bg-blue-700"
+        >Save</CustomButton
       >
-      <AppButton
+      <CustomButton
         type="button"
         btn-style="red"
-        style="color: rgba(255, 255, 255); background-color: rgba(185, 28, 28)"
+        class="bg-red-700"
         @click="onCancel"
-        >Cancel</AppButton
+        >Cancel</CustomButton
       >
     </div>
   </form>
@@ -30,14 +31,14 @@
 
 <script lang="ts">
 import AppControlInput from '@/components/UI/AppControlInput.vue'
-import AppButton from '@/components/UI/AppButton.vue'
+import CustomButton from '@/components/UI/CustomButton.vue'
 import Vue from 'vue'
 import useRoute from 'vue-router'
 
 export default Vue.extend({
   components: {
     AppControlInput,
-    AppButton,
+    CustomButton,
   },
   props: {
     post: {
@@ -54,19 +55,16 @@ export default Vue.extend({
             title: '',
             thumbnail: '',
             content: '',
-            previewText: '',
           },
     }
   },
   methods: {
     onSave() {
-      // Save the post
-      console.log(this.editedPost)
       this.$emit('submit', this.editedPost)
     },
     onCancel() {
       // Navigate back
-      this.$router.push('/admin')
+      this.$router.push('/')
     },
   },
 })

@@ -1,5 +1,7 @@
 <template lang="">
-  <section class="post-list">
+  <section
+    class="grid content-center grid-cols-1 gap-5 p-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
     <PostPreview
       v-for="post in posts"
       :key="post.id"
@@ -7,7 +9,7 @@
       :is-admin="isAdmin"
       :thumbnail="post.thumbnail"
       :title="post.title"
-      :previewText="post.previewText"
+      :content="post.content"
     />
   </section>
 </template>
