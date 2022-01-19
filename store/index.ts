@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import { ActionContext } from 'vuex/types'
 
-import { Blog, Id } from '../types/index'
+import { Blog} from '../types/index'
 import firebase from 'firebase/compat/app'
 
 export const state = () => ({})
@@ -21,12 +21,12 @@ const createStore = () => {
       addPost(state, post: Blog) {
         state.loadedPosts.push(post)
       },
-      // editPost(state, editedPost) {
-      //   const postIndex = state.loadedPosts.findIndex(
-      //     (post) => post.id === editedPost.id
-      //   )
-      //   state.loadedPosts[postIndex] = editedPost
-      // },
+      editPost(state, editedPost) {
+        const postIndex = state.loadedPosts.findIndex(
+          (post) => post.id === editedPost.id
+        )
+        state.loadedPosts[postIndex] = editedPost
+      },
     },
     //NOTE: Mutationsを介して、Stateを更新するメソッドです
     //非同期処理でなければなりません
@@ -35,7 +35,7 @@ const createStore = () => {
         vuexContext: ActionContext<RootState, RootState>,
         context
       ) {
-        const data: (Blog & Id)[] = []
+        const data: (Blog )[] = []
         return await firebase
           .firestore()
           .collection('blog')
@@ -74,25 +74,30 @@ const createStore = () => {
           )
           .catch((e) => console.log(e))
       },
-      // editPost(vuexContext, editedPost) {
-      //   return firebase
-      //     .firestore()
-      //     .collection('blog')
-      //     .doc(editedPost.id)
-      //     .update({
-      //       capital: true,
-      //     })
-      //     .then((res) => {
-      //       vuexContext.commit('editPost', editedPost)
-      //     })
-      //     .catch((e) => console.log(e))
-      // },
+      async editPost(vuexContext, editedPost) {
+        try {
+          await firebase
+            .firestore()
+            .collection('blog')
+            .doc(editedPost.id)
+            .update({
+              ...editedPost,
+              editedDate: new Date(),
+            })
+          vuexContext.commit('editPost', editedPost)
+        } catch (e) {
+          return console.log(e)
+        }
+      },
     },
     //NOTE: Stateの内容から算出される値です
     //Componentにデータを加工して提供します（Viewに表示させる）
     getters: {
       loadedPosts(state) {
         return state.loadedPosts
+      },
+      getPost: (state) => (id: string | undefined) => {
+        return state.loadedPosts.find((post) => post.id === id)
       },
     },
   })

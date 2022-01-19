@@ -7,12 +7,13 @@
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
-      <PostList isAdmin />
+      <PostList isAdmin :posts="loadedPosts" />
     </section>
   </div>
 </template>
 
 <script lang="ts">
+import PostList from '@/components/Posts/PostList.vue'
 import CustomButton from '@/components/UI/CustomButton.vue'
 import Vue from 'vue'
 
@@ -20,12 +21,13 @@ export default Vue.extend({
   layout: 'admin',
   components: {
     CustomButton,
+    PostList,
   },
-  // computed: {
-  //   loadedPosts() {
-  //     return this.$store.getters.loadedPosts
-  //   },
-  // },
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts
+    },
+  },
 })
 </script>
 
