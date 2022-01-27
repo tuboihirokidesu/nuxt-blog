@@ -1,7 +1,7 @@
 <template lang="">
   <div class="admin-post-page">
     <section class="w-2/5 mx-auto my-5">
-      <AdminPostForm :post="loadedPost" @submit="onSubmitted" />
+      <AdminPostForm isEdit :post="loadedPost" @submit="onSubmitted" />
     </section>
   </div>
 </template>
@@ -19,7 +19,6 @@ export default Vue.extend({
   methods: {
     onSubmitted(editedPost: Blog) {
       this.$store.dispatch('editPost', editedPost).then(() => {
-        console.log(editedPost)
         this.$router.push('/admin')
       })
     },

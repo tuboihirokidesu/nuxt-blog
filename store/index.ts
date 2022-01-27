@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import { ActionContext } from 'vuex/types'
 
-import { Blog} from '../types/index'
+import { Blog } from '../types/index'
 import firebase from 'firebase/compat/app'
 
 export const state = () => ({})
@@ -12,8 +12,6 @@ const createStore = () => {
     state: {
       loadedPosts: [] as Blog[],
     },
-    //NOTE: Stateを更新するメソッドです
-    //NOTE: 同期処理でなければなりません
     mutations: {
       setPosts(state, posts) {
         state.loadedPosts = posts
@@ -27,21 +25,24 @@ const createStore = () => {
         )
         state.loadedPosts[postIndex] = editedPost
       },
+      deletePost(state, deletePost) {
+        const postIndex = state.loadedPosts.findIndex(
+          (post) => post.id === deletePost.id
+        )
+        state.loadedPosts[postIndex] = deletePost
+      },
     },
-    //NOTE: Mutationsを介して、Stateを更新するメソッドです
-    //非同期処理でなければなりません
     actions: {
       async nuxtServerInit(
         vuexContext: ActionContext<RootState, RootState>,
         context
       ) {
-        const data: (Blog )[] = []
+        const data: Blog[] = []
         return await firebase
           .firestore()
           .collection('blog')
           .get()
           .then((res) => {
-            // console.log(firebase.firestore().collection('blog').doc().id)
             res.forEach((doc) => {
               const obj = {
                 ...(doc.data() as Blog),
@@ -89,9 +90,20 @@ const createStore = () => {
           return console.log(e)
         }
       },
+      async deletePost(vuexContext, post) {
+        try {
+          await firebase
+            .firestore()
+            .collection('blog')
+            .doc(post.id)
+            .delete()
+            .then(() => console.log('deleteしたで'))
+          vuexContext.commit('deletePost', post)
+        } catch (e) {
+          return console.log(e)
+        }
+      },
     },
-    //NOTE: Stateの内容から算出される値です
-    //Componentにデータを加工して提供します（Viewに表示させる）
     getters: {
       loadedPosts(state) {
         return state.loadedPosts
